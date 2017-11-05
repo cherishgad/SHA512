@@ -11,7 +11,7 @@ int messageBlockGenerator(unsigned long long int * message_block, int  message_b
 		}
 		return 0;//finish
 	}
-	else if(message_block_size_bit>=0 && message_block_size_bit <= (MESSAGEBLOCKBITS - LENGTHBIT)){
+	else if(message_block_size_bit>=0 && message_block_size_bit <= (MESSAGEBLOCKBITS - LENGTHBIT)){//have a space for length
 		counterIncreaser(counter, message_block_size_bit);//counter increase
 		firstPartZeroPadding(&message_block[message_block_size_bit/WORDBITS], message_block_size_bit%WORDBITS);//zero padding first part		
 		for(i = message_block_size_bit/WORDBITS + 1; i < MESSAGEBLOCKWORDS-COUNTERSIZE; i++){//normal zero pedding
@@ -60,7 +60,7 @@ int counterIncreaser(unsigned long long int * counter, int increase_number){
 }
 int firstPartZeroPadding(unsigned long long int * target, int message_size_bit){
 	unsigned long long int pedding = (unsigned long long int)((long long int)(-1));
-	if(message_size_bit <=0)
+	if(message_size_bit < 0)
 		return -1;
 	*target = *target & (pedding<<(WORDBITS-message_size_bit));//erase the do not need	
 	pedding = ((unsigned long long int)(1)) <<(WORDBITS-message_size_bit-1);

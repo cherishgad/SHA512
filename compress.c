@@ -7,8 +7,26 @@ void compress(unsigned long long int * hash, unsigned long long int * message, u
 		printf("Out of memory during excuting the compress function start point \n");  
 		exit(-1);  
 	}
+	for(i = 0; i< COMPRESSROUNDWORD; i++){
+		printf("0x%x", (hash[i]>>32));
+		printf("%x", ((hash[i]<<32)>>32));
+		printf("\n");
+	}
+	printf("\n inital hash\n");
+	for(i = 0; i< ORIGINWORDNUMBER; i++){
+		printf("0x%x", (message[i]>>32));
+		printf("%x", ((message[i]<<32)>>32));
+		printf("\n");
+	}
+	printf("\nmessage block\n");
 	//Expand messsage
 	wordExpansion(message,expansion_message);
+	for(i = 0; i< EXPANSIONWORDNUMBER; i++){
+		printf("0x%08x", (expansion_message[i]>>32));
+		printf("%08x", ((expansion_message[i]<<32)>>32));
+		printf("\n");
+	}
+	printf("\nexpansion result\n");
 	//copy the hash
 	for(i = 0; i<COMPRESSROUNDWORD; i++){
 		round_result[i] = hash[i];
@@ -21,6 +39,20 @@ void compress(unsigned long long int * hash, unsigned long long int * message, u
 	for(i =0; i<COMPRESSROUNDWORD; i++){
 		hash[i] = hash[i] + round_result[i];
 	}
+	for(i = 0; i< COMPRESSROUNDWORD; i++){
+		printf("0x%08x", (round_result[i]>>32));
+		printf("%08x", ((round_result[i]<<32)>>32));
+		printf("\n");
+	}
+	printf("\nround result\n");
+	for(i = 0; i< COMPRESSROUNDWORD; i++){
+		printf("0x%08x", (hash[i]>>32));
+		printf("%08x", ((hash[i]<<32)>>32));
+		printf("\n");
+	}
+	printf("\nhash result\n");
+
+
 	free(expansion_message);
 	free(round_result);
 }
@@ -79,5 +111,5 @@ unsigned long long int rotate(unsigned long long int x){
 	return rotRightUnsignedLongInt(x, 28)^rotRightUnsignedLongInt(x, 34)^rotRightUnsignedLongInt(x, 39);
 }
 unsigned long long int conditional(unsigned long long int x, unsigned long long int y, unsigned long long int z){
-	return (x&y) ^ (~x&z);
+	return (x&y) ^ ((~x)&z);
 }
