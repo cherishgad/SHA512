@@ -18,7 +18,8 @@ unsigned long long int rotShiftUnsignedLongInt(unsigned long long int value, int
 unsigned long long int rotLeftUnsignedLongInt(unsigned long long int value, int shift);
 unsigned long long int rotRightUnsignedLongInt(unsigned long long int value, int shift);
 unsigned long long int majority(unsigned long long int x, unsigned long long int y, unsigned long long int z);
-unsigned long long int rotate(unsigned long long int x);
+unsigned long long int rotateA(unsigned long long int x);
+unsigned long long int rotateB(unsigned long long int x);
 unsigned long long int conditional(unsigned long long int x, unsigned long long int y, unsigned long long int z);
-
+void printUnsignedLongInt(unsigned long long int * long_ary, unsigned long long int size);
 #endif

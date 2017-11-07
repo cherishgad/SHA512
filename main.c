@@ -13,6 +13,7 @@
 #define CHARSIZE 8
 //This program assume word size is 8 byte so 64 bits
 void read_directly();
+void read_file();
 void excute(unsigned long long int * message, unsigned long long int message_size_bit);
 int main(){
 	int user_select = 0;
@@ -23,7 +24,6 @@ int main(){
 	scanf("%d", &user_select);
 	if (user_select == 1){
 		read_directly();
-		printf("\n");
 	}
 	printf("\nGOOD BYE!!\n");
 	return 0;
@@ -92,11 +92,9 @@ void excute(unsigned long long int * message, unsigned long long int message_siz
 		compress(hash, message_block, round_constant);
 	}
 
-	for(i = 0; i< INITIALHASHSIZE; i++){
-		printf("0x%08x", (hash[i]>>32));
-		printf("%08x", ((hash[i]<<32)>>32));
-		printf("\n");
-	}
+	printf("\nhash result\n");
+	printUnsignedLongInt(hash, INITIALHASHSIZE);
+	
 	free(hash);
 	free(round_constant);
 	free(message_block);
